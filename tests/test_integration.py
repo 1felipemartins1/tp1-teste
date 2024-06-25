@@ -42,9 +42,8 @@ def test_remove_user(setup):
     library, mock_db = setup
     user = User(CPF="12345678900", name="Test User", email="test@example.com", password="Password#", is_admin=False)
 
-    # First, add the user to the database to ensure they exist
     library.add_user(user)
-    mock_db.reset_mock()  # Reset the mock to clear previous calls
+    mock_db.reset_mock()  
 
     library.remove_user(user.get_CPF())
 
@@ -58,9 +57,9 @@ def test_remove_book(setup):
     library, mock_db = setup
     book = Book(id=1, title="Sample Book", author="Sample Author", genre="Sample Genre")
 
-    # First, add the book to the database to ensure it exists
+    
     library.add_book(book)
-    mock_db.reset_mock()  # Reset the mock to clear previous calls
+    mock_db.reset_mock()  
 
     library.remove_book(book.get_id())
 
@@ -76,10 +75,9 @@ def test_loan_book(setup):
     book = Book(id=1, title="Sample Book", author="Sample Author", genre="Sample Genre")
     loan_date = datetime.now()
 
-    # First, add the user and book to the database to ensure they exist
     library.add_user(user)
     library.add_book(book)
-    mock_db.reset_mock()  # Reset the mock to clear previous calls
+    mock_db.reset_mock()  
 
     loan = Loan(user.CPF, book.id, loan_date)
     library.loan_book(loan)
@@ -97,13 +95,12 @@ def test_return_book(setup):
     book = Book(id=1, title="Sample Book", author="Sample Author", genre="Sample Genre")
     loan_date = datetime.now()
 
-    # Adiciona o usuário e o livro ao banco de dados para garantir que eles existam
     library.add_user(user)
     library.add_book(book)
 
     loan = Loan(user.CPF, book.id, loan_date)
     library.loan_book(loan)
-    mock_db.reset_mock()  # Limpa as chamadas anteriores do mock
+    mock_db.reset_mock()  
 
     library.return_book(user.CPF, book.id)
 
